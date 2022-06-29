@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <% if user_signed_in?%>
+        <h1 class="mt-5 ">Welcome to the Bugzilla App</h1>
+        <br>
+        <% if current_user.manger? %>
+          <h5>You Signed In as Manager</h5>
+          <br>
+          <%= link_to "Go to the projects Dashboard",  projects_path, class: "btn btn-success"%>
+        <% elsif current_user.developer? %>
+          <h3>Welcome developer</h3>
+
+        <% elsif current_user.qa?%>
+          <h3>Welcome QA</h3>
+          <%= link_to "Go to the projects Dashboard",  projects_path, class: "btn btn-success"%>
+        <% end %>
+      <% else %>
+        <h4>Sign in or Sign up before continuing</h4>
+        <%= link_to "Sign In",  new_user_session_path, class: "btn btn-success"%>
+        <%= link_to "Sign Up",  new_user_registration_path, class: "btn btn-primary"%>
+      <% end%>
+    </div>
+  </div>
+</div>
+
+
