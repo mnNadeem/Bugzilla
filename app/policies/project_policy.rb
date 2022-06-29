@@ -24,7 +24,7 @@ class ProjectPolicy < ApplicationPolicy
   def destroy?
     user.manger? && [user.id] == project.user_ids
   end
-
+  
   private
 
   def project
