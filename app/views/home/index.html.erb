@@ -10,7 +10,7 @@
           <%= link_to "Go to the projects Dashboard",  projects_path, class: "btn btn-success"%>
         <% elsif current_user.developer? %>
           <h3>Welcome developer</h3>
-
+          <%= link_to "Go to the projects Dashboard",  projects_path, class: "btn btn-success"%>
         <% elsif current_user.qa?%>
           <h3>Welcome QA</h3>
           <%= link_to "Go to the projects Dashboard",  projects_path, class: "btn btn-success"%>

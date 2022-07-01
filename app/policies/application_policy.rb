@@ -12,11 +12,11 @@ class ApplicationPolicy
   end
 
   def show?
-    scope.where(:id => record.id).exists?
+    false
   end
 
   def create?
-    false
+    true
   end
 
   def new?
@@ -35,20 +35,19 @@ class ApplicationPolicy
     false
   end
 
-  def scope
-    Pundit.policy_scope!(user, record.class)
-  end
-
   class Scope
-    attr_reader :user, :scope
-
     def initialize(user, scope)
       @user = user
       @scope = scope
     end
 
     def resolve
-      scope
+      raise NotImplementedError, "You must define #resolve in #{self.class}"
     end
+
+    private
+
+    attr_reader :user, :scope
   end
+
 end

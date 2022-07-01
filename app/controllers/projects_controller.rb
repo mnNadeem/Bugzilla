@@ -3,7 +3,11 @@ class ProjectsController < ApplicationController
   before_action :authorize_project, only: [:edit, :destroy,:add_qas_developers]
 
   def index
-    @project=Project.all
+    if current_user.manger?
+      @project=Project.all
+    else
+      @project=current_user.projects
+    end
   end
 
   def new
