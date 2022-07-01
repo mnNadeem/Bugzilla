@@ -18,11 +18,11 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def update?
-    return true if user.manger? && user == project.user
+    user.manger? && [user.id] == project.user_ids
   end
 
   def destroy?
-    return true if user.manger? && user == project.user
+    user.manger? && [user.id] == project.user_ids
   end
 
   private
