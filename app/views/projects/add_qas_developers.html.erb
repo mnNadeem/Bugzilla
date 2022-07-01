@@ -1,0 +1,21 @@
+<% if @qas.present? %>
+  <ul>
+    <% @qas.each do |qa| %>
+      <li class = 'list-item my-3' >
+        <%= qa.name %>
+        <%= link_to 'Remove from Project', remove_qas_developers_project_path(id: @project.id, qa_id: qa.id), class: 'btn btn-danger' %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+<% if @developers.present? %>
+  <ul>
+    <% @developers.each do |dev| %>
+      <li class = 'list-item my-3' >
+        <%= dev.name %>
+        <%= link_to 'Remove from Project', remove_qas_developers_project_path(id: @project.id, dev_id: dev.id), class: 'btn btn-danger' %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+

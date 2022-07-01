@@ -5,7 +5,7 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :role, presence: true
   has_and_belongs_to_many :projects
-  has_many :bugs, :dependent => :destroy
+  # has_many :bugs, :dependent => :destroy
   enum role: [:manger, :developer, :qa]
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,:confirmable,:trackable

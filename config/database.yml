@@ -22,6 +22,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: nadeem2
   password: 123456789
+
 development:
   <<: *default
   database: Bugzilla_development
