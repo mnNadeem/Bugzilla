@@ -1,13 +1,16 @@
-<div class="container comment-box">
-  <div class="row">
-    <div class = "col-lg-8">
-      <h2>Sign up</h2>
+<div class="container ">
+  <div class="row sign">
+    <div class = "form-control">
+      <div class="note">
+        <br>
+        <h2>Sign Up</h2>
+      </div>
       <%= form_for(resource, as: resource_name, validate: true, url: registration_path(resource_name)) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="field">
           <%= f.label :name%><br />
-          <%= f.text_field :name, autofocus: true,class: "form-control"%>
+          <%= f.text_field :name, autofocus: true ,class: "form-control"%>
         </div>
 
         <div class="field">
@@ -33,12 +36,20 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control" %>
         </div>
         <br>
-        <div class="actions">
-          <%= f.submit "Sign up" %>
+        <div class= "row" >
+          <div class="actions">
+            <%= f.submit "Sign up", class: "btn btn-success form-control" %>
+          </div>
+          <div class="actionsp">
+            <p></p>
+          </div>
+          <div class="actions">
+            <%= link_to "Log in", new_session_path(resource_name), class: "btn btn-primary form-control" %>
+          </div>
         </div>
       <% end %>
-
-      <%= render "devise/shared/links" %>
+      <br>
+      <%# <%= render "devise/shared/links" %>
     </div>
   </div>
 </div>

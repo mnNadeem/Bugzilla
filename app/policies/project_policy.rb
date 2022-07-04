@@ -1,18 +1,8 @@
 class ProjectPolicy < ApplicationPolicy
-  # class Scope < Scope
-  #   # NOTE: Be explicit about which records you allow access to!
-  #   # def resolve
-  #   #   scope.all
-  #   # end
-  # end
-  # attr_reader :user, :project
 
-  # def initialize(user, project)
-  #   @user = user
-  #   @project = project
-  # end
-  # #  attr_reader :user, :post
-
+  def index?
+    true
+  end
   def create?
     user.manger?
   end
@@ -29,9 +19,8 @@ class ProjectPolicy < ApplicationPolicy
     user.manger? && [user.id] == project.users.manger.pluck(:id)
   end
 
-  private
-
   def project
     record
   end
+  
 end

@@ -31,3 +31,54 @@
 .field_with_errors .message{
   color: #D00;
 }
+
+.sign_in {
+  width: 45%;
+  margin-left: 22rem;
+  margin-top: 5rem;
+}
+
+.sign {
+  width: 45%;
+  margin-left: 22rem;
+  margin-top: 5rem;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+.note
+{
+  text-align: center;
+  height: 200px;
+  background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+  color: #fff;
+  font-weight: bold;
+  line-height: 80px;
+  margin-bottom: 1rem;
+}
+.form-content
+{
+  padding: 5%;
+  border: 1px solid #ced4da;
+  margin-bottom: 10%;
+}
+.form-control{
+  border-radius:1.5rem;
+}
+.actions{
+  width: 30%;
+}
+.actionsp{
+  width: 40%;
+}
+.btnSubmit
+{
+  border:none;
+  border-radius:1.5rem;
+  padding: 1%;
+  width: 20%;
+  cursor: pointer;
+  background: #0062cc;
+  color: #fff;
+}

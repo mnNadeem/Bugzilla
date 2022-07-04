@@ -5,25 +5,16 @@
          <br>
          <h2>Add a Project</h2>
          </div>
-         <%= form_for @project, validate: true do |f| %>
+         <%= form_for @bug, validate: true do |f| %>
             <div>
                <div>
                   <label>Project Title</label>
                   <%= f.text_field :title, class: "form-control" %>
                </div>
                <div>
-                  <label>Description</label>
-                  <%= f.text_field :description, class: "form-control" %>
+                  <label>Deadline</label>
+                  <%= f.text_field :deadline, class: "form-control" %>
                </div>
-               <div>
-                  <%= f.label :qa %><br/>
-                  <%= f.collection_select(:qa, User.qa.order(:name), :id, :name, {:prompt => "Please Select a qa"},{:multiple => true}) %>
-               </div>
-               <div>
-                  <%= f.label :developer %><br/>
-                  <%= f.collection_select(:developer, User.developer.order(:name), :id, :name, {:prompt => "Please Select a developer"},{:multiple => true})%>
-               </div>
-               <br>
             </div>
             <div>
                <%= link_to 'Back', { controller: 'projects', action: 'index'} ,class: "btn btn-success"%>
