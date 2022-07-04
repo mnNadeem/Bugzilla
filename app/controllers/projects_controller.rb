@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :find_project, only: [:show, :edit, :update, :destroy, :add_qas_developers, :remove_qas_developers]
+  before_action :find_project, only: [:show, :edit, :update, :destroy, :add_qas_developers, :remove_qas_developers, :remove_qas_developers1]
   before_action :authorize_project, only: [:edit, :destroy,:add_qas_developers]
 
   def index
@@ -41,12 +41,12 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      @project.developer.each do |developer|
-        @project.users << User.find(developer) if developer.present?
-      end
-      @project.qa.each do |qa|
-        @project.users << User.find(qa) if qa.present?
-      end
+      # @project.developer.each do |developer|
+      #   @project.users << User.find(developer) if developer.present?
+      # end
+      # @project.qa.each do |qa|
+      #   @project.users << User.find(qa) if qa.present?
+      # end
       flash[:notice] = 'Project is updated successfully'
       redirect_to @project
     else
@@ -73,6 +73,13 @@ class ProjectsController < ApplicationController
     user = User.find(params[:qa_id])
     @project.users.delete(user)
     @qas = @project.users.qa
+    render 'add_qas_developers'
+  end
+
+  def remove_qas_developers1
+    user = User.find(params[:dev_id])
+    @project.users.delete(user)
+    @developers = @project.users.developer
     render 'add_qas_developers'
   end
 
