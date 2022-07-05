@@ -6,16 +6,36 @@
          <h2>Add a Project</h2>
          </div>
          <%= form_for @bug, validate: true do |f| %>
-            <div>
-               <div>
-                  <label>Project Title</label>
-                  <%= f.text_field :title, class: "form-control" %>
-               </div>
-               <div>
-                  <label>Deadline</label>
-                  <%= f.text_field :deadline, class: "form-control" %>
-               </div>
+            <div class="field">
+               <%= f.label :title%><br />
+               <%= f.text_field :title, autofocus: true ,class: "form-control"%>
             </div>
+
+            <div class="field">
+               <%= f.label :deadline%><br />
+                <%= f.date_field :deadline, class: 'form-control' %>
+            </div>
+
+            <div class="field">
+               <%= f.label :screeshot%><br />
+               <%= f.file_field :screenshot, class: 'form-control' %>
+            </div>
+
+            <div class="field">
+               <%= f.label :type%><br />
+               <%= f.select :bug_type, options_for_select(Bug.bug_types.map { |key, value| [key.humanize, key] }), {prompt: "Select Type..."}, class: "form-control" %>
+            </div>
+            <% if current_user.qa? %>
+               <div class="field">
+                  <%= f.label :status%><br />
+                  <%= f.select :status, options_for_select(Bug.statuses.map { |key, value| [key.humanize, key] }), {prompt: "Select status..."}, class: "form-control" %>
+               </div>
+            <%elsif current_user.developer?%>
+               <div class="field">
+                  <%= f.label :status%><br />
+                  <%= f.select :status, options_for_select(Bug.comments_statuses.map { |key, value| [key.humanize, key] }), {prompt: "Select status..."}, class: "form-control" %>
+               </div>
+            <%end%>
             <div>
                <%= link_to 'Back', { controller: 'projects', action: 'index'} ,class: "btn btn-success"%>
                <%= f.submit  class: "btn btn-primary" %>
