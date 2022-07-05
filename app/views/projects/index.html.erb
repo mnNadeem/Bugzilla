@@ -14,15 +14,20 @@
             <th>Title</th>
             <th>QAs</th>
             <th>Developers</th>
+            <% if current_user.qa? || current_user.developer?%>
+              <th>Bugs</th>
+            <%end%>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <% @project.each do |project| %>
+        <tbody><% @project.each do |project| %>
             <tr>
               <td><%= project.title%></td>
-              <td><%= project.users.qa.pluck(:name) %></td>
-              <td><%= project.users.developer.pluck(:name) %></td>
+              <td><%= options_from_collection_for_select(project.users.qa, 'id', 'name') %></td>
+              <td><%= options_from_collection_for_select(project.users.developer, 'id', 'name') %></td>
+              <% if current_user.qa? || current_user.developer?%>
+                <td><%= options_from_collection_for_select(project.bugs, 'id', 'title') %></td>
+              <%end%>
               <td>
                 <div>
                   <% if current_user.manger?%>

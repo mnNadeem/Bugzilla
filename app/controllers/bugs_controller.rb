@@ -1,18 +1,15 @@
 class BugsController < ApplicationController
   before_action :find_bug, only: [:show, :edit, :update, :destroy]
-  # after_action :find_project, only: [:create]
-  # before_action :authorize_project, only: [:edit, :destroy,:add_qas_developers]
-
   def index
     @bug=Bug.all
   end
-
   def new
     @bug=Bug.new
-  
+    authorize @bug
+  end
   def create
     @bug=current_user.bugs.new(bug_params)
-    if @bug.save
+    if @bug.save!
       flash[:notice] = 'Bug is created successfully'
         redirect_to :bugs
     else
@@ -46,23 +43,17 @@ class BugsController < ApplicationController
     end
   end
 
+  def assign_bug_to_developer
+  end
+
   private
 
   def find_bug
     @bug=Bug.find(params[:id])
   end
 
-  # def find_project
-  #   @project=Project.includes(:users).where(current_user.projects.user_id == current_user.id)
-  #   @bug.update(project_id==@project.id)
-  # end
-
   def bug_params
-    params.require(:bug).permit(:title, :deadline, :bug_type, :status, :screenshot)
+    params.require(:bug).permit(:title, :deadline, :screenshot, :bug_type, :status, :project_id)
   end
-
-  # def authorize_project
-  #   authorize @project
-  # end
 
 end

@@ -3,7 +3,7 @@
       <div class = "col-lg-8 form-control align-items-center">
          <div class="note">
          <br>
-         <h2>Report a Bug</h2>
+         <h2>Add a Project</h2>
          </div>
          <%= form_for @bug, validate: true do |f| %>
             <div class="field">
@@ -17,18 +17,18 @@
             </div>
 
             <div class="field">
-               <%= f.label :screeshot%><br/>
+               <%= f.label :screeshot%><br />
                <%= f.file_field :screenshot, class: 'form-control' %>
             </div>
 
             <div class="field">
                <%= f.label :type%><br />
-               <%= f.select :bug_type, options_for_select(bug_types.map { |key, value| [key.humanize, key] }), {prompt: "Select Type..."}, class: "form-control" %>
+               <%= f.select :bug_type, options_for_select(Bug.bug_types.map { |key, value| [key.humanize, key] }), {prompt: "Select Type..."}, class: "form-control" %>
             </div>
             <% if current_user.qa? %>
                <div class="field">
                   <%= f.label :status%><br />
-                  <%= f.select :status, options_for_select(bug_status.map { |key, value| [key.humanize, key] }), {prompt: "Select status..."}, class: "form-control" %>
+                  <%= f.select :status, options_for_select(Bug.statuses.map { |key, value| [key.humanize, key] }), {prompt: "Select status..."}, class: "form-control" %>
                </div>
             <%elsif current_user.developer?%>
                <div class="field">
@@ -36,10 +36,6 @@
                   <%= f.select :status, options_for_select(Bug.comments_statuses.map { |key, value| [key.humanize, key] }), {prompt: "Select status..."}, class: "form-control" %>
                </div>
             <%end%>
-            <div class="field">
-               <%= f.label :project_id%><br />
-               <%= f.select :project_id, options_for_select(user_projects_ids.map { |key, value| [key, key] }), {prompt: "Select the project id in which ..."}, class: "form-control" %>
-            </div>
             <div>
                <%= link_to 'Back', { controller: 'projects', action: 'index'} ,class: "btn btn-success"%>
                <%= f.submit  class: "btn btn-primary" %>
@@ -48,4 +44,3 @@
       </div>
    </div>
 </div>
-

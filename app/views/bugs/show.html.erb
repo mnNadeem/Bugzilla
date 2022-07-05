@@ -8,10 +8,10 @@
         <br>
       </div>
       <div>
-        <%# <h6><label>Screenshot:</label></h6>
-        <% if @bug.screenshot.attached?%>
-          <%# <%= image_tage @bug.screenshot %>
-        <%# <%end%>
+        <h6><label>Screenshot:</label></h6>
+        <% if @bug.screenshot.attached? %>
+          <%= image_tag @bug.screenshot %>
+        <%end%>
         <br>
         <br>
       </div>

@@ -1,5 +1,4 @@
 class ProjectPolicy < ApplicationPolicy
-
   def index?
     true
   end
@@ -22,5 +21,5 @@ class ProjectPolicy < ApplicationPolicy
   def project
     record
   end
-  
+
 end

@@ -1,21 +1,48 @@
     <div class="container">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-12">
           <div>
-            <h6><label>Project Title:</label></h6>
-            <%= @project.title %>
+            <h3><label>Project Title:</label></h6>
+            <strong><%= @project.title %></strong>
             <br>
-            <br>
-          </div>
-          <div>
-            <h6><label>Description:</label></h6>
-            <%= @project.description %>
-            <br>
-            <br>
-          </div>
-          <div>
-            <%= link_to 'Back', { controller: 'projects', action: 'index'} ,class: "btn btn-success"%>
           </div>
         </div>
       </div>
     </div>
+    <br>
+    <div class="container">
+      <h3>Bugs in this project</h3>
+      <div class="row">
+        <% @project.bugs.each do |bug|%>
+          <div class="card" style="width: 18rem; margin: 50px;", class="col-md-4 col-sm-6">
+            <% if bug.screenshot.attached? %>
+              <%= image_tag bug.screenshot, class:"card-img-top" %>
+            <%end%>
+            <div class="card-body">
+              <div>
+                <h6><label>Title:</label></h6>
+                <%= bug.title %>
+              </div>
+              <br>
+              <div>
+                <h6><label>deadline:</label></h6>
+                <%= bug.deadline %>
+                <br>
+              </div>
+              <br>
+              <div>
+                <h6><label>Status:</label></h6>
+                <%= bug.status %>
+                <br>
+              </div>
+            </div>
+          </div>
+        <%end%>
+      </div>
+      <div>
+        <%= link_to 'Back', { controller: 'projects', action: 'index'} ,class: "btn btn-success"%>
+      </div>
+    </div>
+
+
+
