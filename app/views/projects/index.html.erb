@@ -20,7 +20,8 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody><% @project.each do |project| %>
+        <tbody>
+          <% @project.each do |project| %>
             <tr>
               <td><%= project.title%></td>
               <td><%= options_from_collection_for_select(project.users.qa, 'id', 'name') %></td>

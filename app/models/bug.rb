@@ -3,7 +3,7 @@ class Bug < ApplicationRecord
   validates :title, length: { maximum: 20 }, format: { with: /\A\D+\z/, message: "Numbers are not allowed" }
   has_one_attached :screenshot
   validates :title, uniqueness: true
-  # validates :screenshot, format: { with: %r{\.(gif|png)\Z}i, message: 'Screenshot type should be GIF or PNG image.'}
+  # validates :screenshot, allow_blank: true, format: { with: %r{.(gif|png)\Z}i, message: 'must be a URL for GIF or PNG image.'}
   enum bug_type: [:bug_t, :feature]
   enum status: [:new,:started,:completed,:resolved], _suffix: true
   enum comments_status: [:new,:started,:resolved], _prefix: :comments

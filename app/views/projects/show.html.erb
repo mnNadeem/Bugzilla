@@ -31,10 +31,20 @@
               </div>
               <br>
               <div>
+                <h6><label>User Id:</label></h6>
+                <%= bug.user_id %>
+                <br>
+              </div>
+              <br>
+              <div>
                 <h6><label>Status:</label></h6>
                 <%= bug.status %>
                 <br>
               </div>
+              <br>
+              <% if current_user.developer?%>
+                <%= link_to 'Assign Bug', assign_bug_to_developer_bug_path(bug.id), class: "btn btn-primary form-control" %>
+              <%end%>
             </div>
           </div>
         <%end%>

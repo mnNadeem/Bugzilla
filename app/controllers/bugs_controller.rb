@@ -1,5 +1,5 @@
 class BugsController < ApplicationController
-  before_action :find_bug, only: [:show, :edit, :update, :destroy]
+  before_action :find_bug, only: [:show, :edit, :update, :destroy,:assign_bug_to_developer]
   def index
     @bug=Bug.all
   end
@@ -36,14 +36,22 @@ class BugsController < ApplicationController
   def destroy
     @bug.destroy
     if @bug.delete
-      flash[:notice] = 'Project deleted successfully!'
+      flash[:notice] = 'Bug deleted successfully!'
       redirect_to :bugs
     else
-      flash[:error] = 'Failed to delete this project!'
+      flash[:error] = 'Failed to delete this Bug!'
     end
   end
 
   def assign_bug_to_developer
+    if @bug.user_id == current_user.id
+      flash[:notice] = 'This Bug is already assigned'
+      redirect_to :projects
+    else
+      @bug.update(user_id: current_user.id)
+      flash[:notice] = 'Bug is Assigned successfully to you'
+      redirect_to :projects
+    end
   end
 
   private

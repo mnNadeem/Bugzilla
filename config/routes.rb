@@ -11,8 +11,6 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     confirmations: 'users/confirmations'
   }
-  # # get 'users', to: 'users#index', as:'users'
-  # resources :users, only: :index
   resources :bugs
   root to: "home#index"
   resources :projects
@@ -22,6 +20,11 @@ Rails.application.routes.draw do
       get :add_qas_developers
       get :remove_qas_developers
       get :remove_qas_developers1
+    end
+  end
+  resources :bugs do
+    member do
+      get :assign_bug_to_developer
     end
   end
 end
