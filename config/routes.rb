@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :bugs do
     member do
       get :assign_bug_to_developer
+      get :resolve_bug
     end
   end
 end

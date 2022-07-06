@@ -1,5 +1,6 @@
 class Bug < ApplicationRecord
   validates_presence_of :title, :status, :bug_type
+  validates_uniqueness_of :title
   validates :title, length: { maximum: 20 }, format: { with: /\A\D+\z/, message: "Numbers are not allowed" }
   has_one_attached :screenshot
   validates :title, uniqueness: true

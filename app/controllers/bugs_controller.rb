@@ -1,5 +1,7 @@
 class BugsController < ApplicationController
-  before_action :find_bug, only: [:show, :edit, :update, :destroy,:assign_bug_to_developer]
+  before_action :find_bug, only: [:show, :edit, :update, :destroy,:assign_bug_to_developer,:resolve_bug]
+  before_action :authorize_bug, only: [:destroy,:assign_bug_to_developer,:resolve_bug]
+
   def index
     @bug=Bug.all
   end
@@ -54,6 +56,17 @@ class BugsController < ApplicationController
     end
   end
 
+  def resolve_bug
+    if @bug.user_id == current_user.id
+      @bug.update(status: 3)
+      flash[:notice] = 'Bug is resolved successfuly'
+      redirect_to :projects
+    else
+      flash[:notice] = 'You need to assign it first'
+      redirect_to :projects
+    end
+  end
+
   private
 
   def find_bug
@@ -64,4 +77,7 @@ class BugsController < ApplicationController
     params.require(:bug).permit(:title, :deadline, :screenshot, :bug_type, :status, :project_id)
   end
 
+   def authorize_bug
+    authorize @bug
+  end
 end
