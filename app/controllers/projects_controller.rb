@@ -1,22 +1,25 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
-  before_action :find_project, only: [:show, :edit, :update, :destroy, :add_qas_developers, :remove_qas_developers, :remove_qas_developers1]
-  before_action :authorize_project, only: [:edit, :destroy,:add_qas_developers]
+  before_action :find_project,
+                only: %i[show edit update destroy add_qas_developers remove_qas_developers remove_qas_developers1]
+  before_action :authorize_project, only: %i[edit destroy add_qas_developers]
 
   def index
-    if current_user.manger?
-      @project=Project.all
-    else
-      @project=current_user.projects
-    end
+    @project = if current_user.manger?
+                 Project.all
+               else
+                 current_user.projects
+               end
   end
 
   def new
-    @project=Project.new
+    @project = Project.new
     authorize @project
   end
 
   def create
-    @project=Project.new(project_params)
+    @project = Project.new(project_params)
     current_user.projects << @project
     if @project.save
       @project.developer.each do |developer|
@@ -26,18 +29,15 @@ class ProjectsController < ApplicationController
         @project.users << User.find(qa) if qa.present?
       end
       flash[:notice] = 'Project is created successfully'
-        redirect_to :projects
     else
       flash[:notice] = 'Project not created'
-      redirect_to :projects
     end
+    redirect_to :projects
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @project.update(project_params)
@@ -84,7 +84,7 @@ class ProjectsController < ApplicationController
   private
 
   def find_project
-    @project=Project.find(params[:id])
+    @project = Project.find(params[:id])
   end
 
   def project_params

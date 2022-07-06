@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get 'bugs/index'
   get 'bugs/create'
@@ -12,7 +14,7 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations'
   }
   resources :bugs
-  root to: "home#index"
+  root to: 'home#index'
   resources :projects
   root 'projects#index'
   resources :projects do
