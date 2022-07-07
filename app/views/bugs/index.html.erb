@@ -1,3 +1,5 @@
-<div>
-  <%= link_to 'Add Bug', new_bug_path, class: "btn btn-primary"%>
-</div>
+<% @bug.each do |bug| %>
+  <div>
+    <%= link_to 'Show', bug_path(bug), method: :get, class: "btn btn-primary" %>
+  </div>
+<%end%>

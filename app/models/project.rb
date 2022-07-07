@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Project < ApplicationRecord
-  validates_presence_of :title
-  has_many :bugs
+  validates :title, presence: true
+  has_many :bugs, dependent: :destroy
   has_and_belongs_to_many :users
 end

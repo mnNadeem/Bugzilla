@@ -1,5 +1,5 @@
+# frozen_string_literal: true
+
 class AddUsertobugs < ActiveRecord::Migration[5.2]
-  def change
-    add_reference :bugs, :user
-  end
+  def change; end
 end

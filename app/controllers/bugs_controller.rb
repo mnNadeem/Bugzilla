@@ -1,31 +1,32 @@
-class BugsController < ApplicationController
+# frozen_string_literal: true
 
-  before_action :find_project, only: [:show, :edit, :update, :destroy]
-  # before_action :authorize_project, only: [:edit, :destroy,:add_qas_developers]
+class BugsController < ApplicationController
+  before_action :find_bug, only: %i[show edit update destroy assign_bug_to_developer resolve_bug]
+  before_action :authorize_bug, only: %i[destroy assign_bug_to_developer resolve_bug]
 
   def index
-    @bug=Bug.all
+    @bug = Bug.all
   end
 
   def new
-    @bug=Bug.new
+    @bug = Bug.new
+    authorize @bug
   end
+
   def create
-    @bug=Bug.new(bug_params)
+    @bug = current_user.bugs.new(bug_params)
     if @bug.save
       flash[:notice] = 'Bug is created successfully'
-        redirect_to :bugs
+      redirect_to :projects
     else
-      flash[:notice] = 'Bug is not created'
-      redirect_to :bugs
+      flash[:alert] = @bug.errors.full_messages.first
+      redirect_to :new_bug
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @bug.update(bug_params)
@@ -39,37 +40,44 @@ class BugsController < ApplicationController
   def destroy
     @bug.destroy
     if @bug.delete
-      flash[:notice] = 'Project deleted successfully!'
+      flash[:notice] = 'Bug deleted successfully!'
       redirect_to :bugs
     else
-      flash[:error] = 'Failed to delete this project!'
+      flash[:error] = 'Failed to delete this Bug!'
     end
   end
 
-  # def add_qas_developers
-  #   @qas = @project.users.qa
-  #   @developers = @project.users.developer
-  # end
+  def assign_bug_to_developer
+    if @bug.user_id == current_user.id
+      flash[:notice] = 'This Bug is already assigned'
+    else
+      @bug.update(user_id: current_user.id)
+      flash[:notice] = 'Bug is Assigned successfully to you'
+    end
+    redirect_to :projects
+  end
 
-  # def remove_qas_developers
-  #   user = User.find(params[:qa_id])
-  #   @project.users.delete(user)
-  #   @qas = @project.users.qa
-  #   render 'add_qas_developers'
-  # end
+  def resolve_bug
+    if @bug.user_id == current_user.id
+      @bug.update(status: 3)
+      flash[:notice] = 'Bug is resolved successfuly'
+    else
+      flash[:notice] = 'You need to assign it first'
+    end
+    redirect_to :projects
+  end
 
   private
 
   def find_bug
-    @bug=Bug.find(params[:id])
+    @bug = Bug.find(params[:id])
   end
 
   def bug_params
-    params.require(:bug).permit(:title, :deadline)
+    params.require(:bug).permit(:title, :deadline, :screenshot, :bug_type, :status, :project_id)
   end
 
-  # def authorize_project
-  #   authorize @project
-  # end
-
+  def authorize_bug
+    authorize @bug
+  end
 end
