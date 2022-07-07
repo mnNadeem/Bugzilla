@@ -29,6 +29,7 @@ gem 'client_side_validations'
 gem 'devise'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
+gem 'cloudinary'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
