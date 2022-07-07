@@ -15,12 +15,12 @@ class BugsController < ApplicationController
 
   def create
     @bug = current_user.bugs.new(bug_params)
-    flash[:notice] = if @bug.save!
+    flash[:notice] = if @bug.save
                        'Bug is created successfully'
                      else
                        'Bug is not created'
                      end
-    redirect_to :bugs
+    redirect_to :projects
   end
 
   def show; end

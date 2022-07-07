@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'bugs/index'
-  get 'bugs/create'
-  get 'bugs/edit'
-  get 'bugs/update'
-  get 'bugs/destroy'
-  get 'users/index'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
@@ -19,9 +13,8 @@ Rails.application.routes.draw do
   root 'projects#index'
   resources :projects do
     member do
-      get :add_qas_developers
-      get :remove_qas_developers
-      get :remove_qas_developers1
+      get :remove_qas
+      get :remove_developers
     end
   end
   resources :bugs do

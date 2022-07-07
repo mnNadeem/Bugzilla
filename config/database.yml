@@ -80,8 +80,8 @@ development:
 # #   production:
 # #     url: <%= ENV['DATABASE_URL'] %>
 # #
-# production:
-#   <<: *default
-#   database: Bugzilla_production
-#   username: Bugzilla
-#   password: <%= ENV['BUGZILLA_DATABASE_PASSWORD'] %>
+production:
+  <<: *default
+  database: Bugzilla_production
+  username: Bugzilla
+  password: <%= ENV['BUGZILLA_DATABASE_PASSWORD'] %>

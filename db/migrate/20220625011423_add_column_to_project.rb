@@ -2,7 +2,9 @@
 
 class AddColumnToProject < ActiveRecord::Migration[5.2]
   def change
-    add_column :projects, :title, :string
-    add_column :projects, :description, :text
+    change_table :projects, bulk: true do |t|
+      t.column :title, :string
+      t.column :description, :text
+    end
   end
 end

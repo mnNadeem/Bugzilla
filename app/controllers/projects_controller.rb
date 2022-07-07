@@ -2,8 +2,10 @@
 
 class ProjectsController < ApplicationController
   before_action :find_project,
-                only: %i[show edit update destroy add_qas_developers remove_qas_developers remove_qas_developers1]
-  before_action :authorize_project, only: %i[edit destroy add_qas_developers]
+                only: %i[show edit update destroy remove_qas remove_developers]
+  before_action :authorize_project, only: %i[edit destroy]
+  before_action :qas_developers,
+                only: %i[edit update]
 
   def index
     @project = if current_user.manger?
@@ -41,12 +43,6 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      @project.developer.each do |developer|
-        @project.users << User.find(developer) if developer.present?
-      end
-      @project.qa.each do |qa|
-        @project.users << User.find(qa) if qa.present?
-      end
       flash[:notice] = 'Project is updated successfully'
       redirect_to @project
     else
@@ -64,24 +60,24 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def add_qas_developers
-    @qas = @project.users.qa
-    @developers = @project.users.developer
-  end
-
-  def remove_qas_developers
+  def remove_qas
     user = User.find(params[:qa_id])
     @project.users.delete(user)
-    redirect_to controller: 'projects', action: 'add_qas_developers', id: @project.id
+    redirect_to controller: 'projects', action: 'edit'
   end
 
-  def remove_qas_developers1
+  def remove_developers
     user = User.find(params[:dev_id])
     @project.users.delete(user)
-    redirect_to controller: 'projects', action: 'add_qas_developers', id: @project.id
+    redirect_to controller: 'projects', action: 'edit'
   end
 
   private
+
+  def qas_developers
+    @qas = @project.users.qa
+    @developers = @project.users.developer
+  end
 
   def find_project
     @project = Project.find(params[:id])
