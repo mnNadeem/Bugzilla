@@ -23,6 +23,7 @@ gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'active_storage_validations'
 gem 'bootstrap', '~> 5.1.3'
 gem 'client_side_validations'
 gem 'devise'

@@ -9,12 +9,36 @@ Things you may want to cover:
 
 * Rails version: 5.2.8
 
-* Configuration: pundit, devise,
+* Configuration: pundit, devise, active storage
 
 * Database creation: postgresql
 
-* Database initialization: seed
+* Database initialization: rails console
 
-* Deployment instructions: Deploy => Bundle => Migrate => Seed
+### Check out the repository
+```
+git clone https://github.com/mnNadeem/Bugzilla.git
+```
+### Create and setup the database
+Run the following commands to create and setup the database.
+```
+1. bundle exec rake db:create
+```
+```
+2. bundle exec rake db:create
+```
+```
+3. bundle exec rake db:setup
+```
+```
+4. bundle exec rake db:migrate
+```
+```
+5 bundle exec rake db:seed
+```
+### Start the Rails server
+You can start the rails server using the command given below.
+```
+  bundle exec rails s
+```
 
-* ...
