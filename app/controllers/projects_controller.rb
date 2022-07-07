@@ -24,12 +24,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     current_user.projects << @project
     if @project.save
-      @project.developer.each do |developer|
-        @project.users << User.find(developer) if developer.present?
-      end
-      @project.qa.each do |qa|
-        @project.users << User.find(qa) if qa.present?
-      end
+      qas_developers_projects(@project)
       flash[:notice] = 'Project is created successfully'
     else
       flash[:notice] = 'Project not created'
@@ -73,6 +68,15 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def qas_developers_projects(project)
+    project.developer.each do |developer|
+      project.users << User.find(developer) if developer.present?
+    end
+    project.qa.each do |qa|
+      project.users << User.find(qa) if qa.present?
+    end
+  end
 
   def qas_developers
     @qas = @project.users.qa
