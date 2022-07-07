@@ -35,6 +35,12 @@
                 <%= bug.status %>
                 <br>
               </div>
+              <br>
+              <% if current_user.developer?%>
+                <%= link_to 'Assign Bug', assign_bug_to_developer_bug_path(bug.id), class: "btn btn-primary form-control" %><br/>
+                <%= link_to 'Delete', bug_path(bug), method: :delete, class: "btn btn-danger form-control" %>
+                <%= link_to 'Resolve Bug', resolve_bug_bug_path(bug.id), class: "btn btn-success form-control" %>
+              <%end%>
             </div>
           </div>
         <%end%>

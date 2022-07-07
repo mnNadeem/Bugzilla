@@ -30,11 +30,6 @@
                   <%= f.label :status%><br />
                   <%= f.select :status, options_for_select(bug_status.map { |key, value| [key.humanize, key] }), {prompt: "Select status..."}, class: "form-control" %>
                </div>
-            <%elsif current_user.developer?%>
-               <div class="field">
-                  <%= f.label :status%><br />
-                  <%= f.select :status, options_for_select(Bug.comments_statuses.map { |key, value| [key.humanize, key] }), {prompt: "Select status..."}, class: "form-control" %>
-               </div>
             <%end%>
             <div class="field">
                <%= f.label :project_id%><br />

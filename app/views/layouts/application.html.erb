@@ -27,7 +27,7 @@
             </li>
             <li class="nav-item active">
               <%if user_signed_in?%>
-                <% if current_user.qa?%>
+                <% if current_user.qa? || current_user.developer?%>
                   <%= link_to 'Report Bug', new_bug_path, class: "nav-link"%>
                 <%end%>
               <%end%>
@@ -46,15 +46,17 @@
         <div class="col-lg-12">
           <center>
             <% flash.each do |type, msg| %>
-              <div class="alert alert-success">
-                <%= msg %>
-              </div>
+              <% if notice %>
+                <p class="alert alert-success"><%= notice %></p>
+              <% end %>
+              <% if alert %>
+                <p class="alert alert-danger"><%= alert %></p>
+              <% end %>
             <% end %>
           </center>
         </div>
       </div>
     </div>
     <%= yield %>
-
   </body>
 </html>

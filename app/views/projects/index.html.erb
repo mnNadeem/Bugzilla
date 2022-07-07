@@ -2,11 +2,17 @@
 <html>
   <body>
     <div class="container">
-      <h3>Projetcs</h3>
+      <h3>Projects</h3>
       <br>
-      <div>
-        <%= link_to 'Add Project', new_project_path, class: "btn btn-primary"%>
-      </div>
+      <% if current_user.qa? || current_user.manger?%>
+        <div>
+          <%= link_to 'Add Project', new_project_path, class: "btn btn-primary"%>
+        </div>
+      <%else%>
+        <div>
+          <%= link_to 'Join Project', new_project_path, class: "btn btn-primary"%>
+        </div>
+      <%end%>
       <br>
       <table class="table table-striped indextable">
         <thead>
@@ -14,27 +20,21 @@
             <th>Title</th>
             <th>QAs</th>
             <th>Developers</th>
-            <% if current_user.qa? || current_user.developer?%>
-              <th>Bugs</th>
-            <%end%>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody><% @project.each do |project| %>
+        <tbody>
+          <% @project.each do |project| %>
             <tr>
               <td><%= project.title%></td>
               <td><%= options_from_collection_for_select(project.users.qa, 'id', 'name') %></td>
               <td><%= options_from_collection_for_select(project.users.developer, 'id', 'name') %></td>
-              <% if current_user.qa? || current_user.developer?%>
-                <td><%= options_from_collection_for_select(project.bugs, 'id', 'title') %></td>
-              <%end%>
               <td>
                 <div>
                   <% if current_user.manger?%>
                     <%= link_to 'Show', project_path(project), method: :get, class: "btn btn-primary" %>
                     <%= link_to 'Edit', edit_project_path(project),class: "btn btn-success" %>
                     <%= link_to 'Delete', project_path(project), method: :delete, class: "btn btn-danger" %>
-                    <%= link_to 'Remove QAs and Developers', add_qas_developers_project_path(project.id), class: "btn btn-danger" %>
                   <% elsif current_user.qa?%>
                     <%= link_to 'Show', project_path(project), method: :get, class: "btn btn-primary" %>
                     <%= link_to 'Edit', edit_project_path(project),class: "btn btn-success" %>
