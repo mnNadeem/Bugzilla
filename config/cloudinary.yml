@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: nadeem123
+  api_key: '365661415561165'
+  api_secret: "F8JdgaFFTCAnce0AI-5sixqZeJ4"
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: nadeem123
+  api_key: '365661415561165'
+  api_secret: "F8JdgaFFTCAnce0AI-5sixqZeJ4"
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: nadeem123
+  api_key: '365661415561165'
+  api_secret: "F8JdgaFFTCAnce0AI-5sixqZeJ4"
+  enhance_image_tag: true
+  static_file_support: false
