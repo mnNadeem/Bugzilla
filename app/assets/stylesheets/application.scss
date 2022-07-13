@@ -50,6 +50,7 @@
 .field {
   margin-bottom: 1rem;
 }
+
 .note
 {
   text-align: center;
@@ -60,21 +61,26 @@
   line-height: 80px;
   margin-bottom: 1rem;
 }
+
 .form-content
 {
   padding: 5%;
   border: 1px solid #ced4da;
   margin-bottom: 10%;
 }
+
 .form-control{
   border-radius:1.5rem;
 }
+
 .actions{
   width: 30%;
 }
+
 .actionsp{
   width: 40%;
 }
+
 .btnSubmit
 {
   border:none;
@@ -84,4 +90,12 @@
   cursor: pointer;
   background: #0062cc;
   color: #fff;
+}
+
+.text-center{
+  margin-left: 30rem;
+}
+
+.delete{
+  margin-left: 10rem;
 }

@@ -1,11 +1,19 @@
 # frozen_string_literal: true
 
 class BugPolicy < ApplicationPolicy
+  def index?
+    true
+  end
+
   def create?
     user.qa?
   end
 
   def destroy?
+    user.qa?
+  end
+
+  def update?
     user.qa?
   end
 

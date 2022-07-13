@@ -11,4 +11,5 @@ class User < ApplicationRecord
   enum role: { manger: 0, developer: 1, qa: 2 }
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :trackable
+         
 end

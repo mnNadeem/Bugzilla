@@ -26,10 +26,10 @@ gem 'turbolinks', '~> 5'
 gem 'active_storage_validations'
 gem 'bootstrap', '~> 5.1.3'
 gem 'client_side_validations'
+gem 'cloudinary'
 gem 'devise'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
-gem 'cloudinary'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -75,4 +75,5 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
+gem 'kaminari'
 gem 'pundit', '~> 2.2'

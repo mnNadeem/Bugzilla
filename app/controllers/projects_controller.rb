@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+#  frozen_string_literal: true
 
 class ProjectsController < ApplicationController
   before_action :find_project,
@@ -9,15 +9,15 @@ class ProjectsController < ApplicationController
 
   def index
     @project = if current_user.manger?
-                 Project.all
+                 Project.all.page(params[:page])
                else
-                 current_user.projects
+                 current_user.projects.all.page(params[:page])
                end
   end
 
   def new
     @project = Project.new
-    authorize @project
+    authorize_project
   end
 
   def create
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
       qas_developers_projects(@project)
       flash[:notice] = 'Project is created successfully'
     else
-      flash[:notice] = 'Project not created'
+      flash[:alert] = @project.errors.full_messages.first
     end
     redirect_to :projects
   end
@@ -38,6 +38,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
+      qas_developers_projects(@project)
       flash[:notice] = 'Project is updated successfully'
       redirect_to @project
     else
@@ -51,30 +52,30 @@ class ProjectsController < ApplicationController
       flash[:notice] = 'Project deleted successfully!'
       redirect_to :projects
     else
-      flash[:error] = 'Failed to delete this project!'
+      flash[:alert] = @project.errors.full_messages.first
     end
   end
 
   def remove_qas
-    user = User.find(params[:qa_id])
+    user = User.find_by(id: params[:qa_id])
     @project.users.delete(user)
-    redirect_to controller: 'projects', action: 'edit'
+    flash_message
   end
 
   def remove_developers
-    user = User.find(params[:dev_id])
+    user = User.find_by(id: params[:dev_id])
     @project.users.delete(user)
-    redirect_to controller: 'projects', action: 'edit'
+    flash_message
   end
 
   private
 
   def qas_developers_projects(project)
     project.developer.each do |developer|
-      project.users << User.find(developer) if developer.present?
+      project.users << User.find_by(id: developer) if developer.present?
     end
     project.qa.each do |qa|
-      project.users << User.find(qa) if qa.present?
+      project.users << User.find_by(id: qa) if qa.present?
     end
   end
 
@@ -84,7 +85,7 @@ class ProjectsController < ApplicationController
   end
 
   def find_project
-    @project = Project.find(params[:id])
+    @project = Project.find_by(id: params[:id])
   end
 
   def project_params
@@ -93,5 +94,9 @@ class ProjectsController < ApplicationController
 
   def authorize_project
     authorize @project
+  end
+
+  def flash_message
+    redirect_to controller: 'projects', action: 'edit'
   end
 end
