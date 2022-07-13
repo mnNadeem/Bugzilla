@@ -2,7 +2,7 @@
 
 class BugsController < ApplicationController
   before_action :find_bug, only: %i[show edit update destroy assign_bug_to_developer resolve_bug]
-  before_action :authorize_bug, only: %i[destroy assign_bug_to_developer resolve_bug]
+  before_action :authorize_bug, only: %i[edit destroy assign_bug_to_developer resolve_bug]
 
   def index
     @bug = Bug.all
@@ -10,7 +10,7 @@ class BugsController < ApplicationController
 
   def new
     @bug = Bug.new
-    authorize @bug
+    authorize_bug
   end
 
   def create
@@ -43,34 +43,27 @@ class BugsController < ApplicationController
       flash[:notice] = 'Bug deleted successfully!'
       redirect_to :bugs
     else
-      flash[:error] = 'Failed to delete this Bug!'
+      flash[:elert] = @bug.errors.full_messages.first
     end
   end
 
   def assign_bug_to_developer
-    if @bug.user_id == current_user.id
-      flash[:notice] = 'This Bug is already assigned'
-    else
-      @bug.update(user_id: current_user.id)
-      flash[:notice] = 'Bug is Assigned successfully to you'
-    end
+    @bug.update(dev_id: current_user.id)
+    @bug.update(status: 1)
+    flash[:notice] = 'Bug is Assigned successfully to you'
     redirect_to :projects
   end
 
   def resolve_bug
-    if @bug.user_id == current_user.id
-      @bug.update(status: 3)
-      flash[:notice] = 'Bug is resolved successfuly'
-    else
-      flash[:notice] = 'You need to assign it first'
-    end
+    @bug.update(status: 3)
+    flash[:notice] = 'Bug is resolved successfuly'
     redirect_to :projects
   end
 
   private
 
   def find_bug
-    @bug = Bug.find(params[:id])
+    @bug = Bug.find_by(id: params[:id])
   end
 
   def bug_params

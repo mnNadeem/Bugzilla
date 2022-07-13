@@ -27,7 +27,7 @@
             </li>
             <li class="nav-item active">
               <%if user_signed_in?%>
-                <% if current_user.qa? || current_user.developer?%>
+                <% if current_user.qa? %>
                   <%= link_to 'Report Bug', new_bug_path, class: "nav-link"%>
                 <%end%>
               <%end%>

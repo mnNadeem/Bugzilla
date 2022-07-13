@@ -10,18 +10,22 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def update?
-    user.manger? && project.users.manger.pluck(:id) == [user.id]
+    user.manger? && user_ids
   end
 
   def destroy?
-    user.manger? && project.users.manger.pluck(:id) == [user.id]
+    user.manger? && user_ids
   end
 
   def add_qas_developers?
-    user.manger? && project.users.manger.pluck(:id) == [user.id]
+    user.manger? && user_ids
   end
 
   def project
     record
+  end
+
+  def user_ids
+    project.users.manger.pluck(:id) == [user.id]
   end
 end

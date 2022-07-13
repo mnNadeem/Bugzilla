@@ -1,16 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-    passwords: 'users/passwords',
-    confirmations: 'users/confirmations'
-  }
-  resources :bugs
+  devise_for :users
   root to: 'home#index'
-  resources :projects
-  root 'projects#index'
   resources :projects do
     member do
       get :remove_qas
@@ -23,4 +15,5 @@ Rails.application.routes.draw do
       get :resolve_bug
     end
   end
+  root 'projects#index'
 end
